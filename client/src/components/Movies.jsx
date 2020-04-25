@@ -19,7 +19,10 @@ class Movies extends React.Component {
       <ul className="movies">
         {this.props.movies.map(movie => {
           return (
-          <MovieListItem movie={movie} key={`${movie.id}`}/>
+          <MovieListItem movie={movie} key={`${movie.id}`}
+          saveMovie={this.props.saveMovie}
+          deleteMovie={this.props.deleteMovie}
+          showFaves={this.props.showFaves}/>
         )})}
       </ul>
     );

@@ -30,24 +30,8 @@ module.exports = {
           error: err
         });
       });
-
-    /* example data
-    {
-      "id": 697003,
-      "vote_average": 0,
-      "title": "Alia: A Bosniac Rhapsody",
-      "release_date": "2008-05-10",
-      "genre_ids": [
-        28,
-        18,
-        36,
-        53,
-        10752
-      ],
-      "poster_path": "/aNYFlJmAf0ShhOWNr3Xgx4owwow.jpg"
-    }
-    */
   },
+
   getGenres: (req, res) => {
     // make an axios request to get the list of official genres
     // use this endpoint, which will also require your API key: https://api.themoviedb.org/3/genre/movie/list
@@ -72,10 +56,72 @@ module.exports = {
     // send back
 
   },
-  saveMovie: (req, res) => {
 
+  getFavorites: (req, res) => {
+    movieModel.getFavorites()
+      .then(results => {
+        res.status(200).json({
+          message: 'Retrieved favorites',
+          results
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({
+          message: 'Failed to get favorites',
+          error: err
+        })
+      })
   },
-  deleteMovie: (req, res) => {
 
+  saveMovie: (req, res) => {
+    if (req.body.movie) {
+
+      movieModel.save(req.body.movie)
+        .then(results => {
+          res.status(200).json({
+            message: 'Successfully saved movie to favorites!',
+            results
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(400).json({
+            message: 'Failed to save movie to favorites',
+            error: err
+          });
+        });
+
+    } else {
+      res.status(400).json({
+        message: 'bad request'
+      });
+    }
+  },
+
+  deleteMovie: (req, res) => {
+    console.log(req.query.movieId);
+    if (req.query.movieId) {
+
+      movieModel.delete(req.query.movieId)
+      .then(results => {
+        res.status(200).json({
+          message: 'Successfully deleted movie from favorites!',
+          results
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({
+          message: 'Failed to delete movie from favorites',
+          error: err
+        });
+      });
+
+    } else {
+      res.status(400).json({
+        message: 'bad request'
+      });
+    }
   }
 }

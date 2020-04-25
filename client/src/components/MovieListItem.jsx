@@ -1,11 +1,18 @@
 import React from 'react';
 
-var MovieListItem = ({movie, handleClick}) =>{
+var MovieListItem = ({movie, saveMovie, deleteMovie, showFaves}) =>{
   let year = movie.release_date;
   year = year ? year.substring(0,4) : 'N/A';
 
   return (
-    <li className="movie_item">
+    <li className="movie_item" onClick={(event) => {
+      // console.log(movie);
+      if (showFaves) {
+        deleteMovie(movie.id);
+      } else {
+        saveMovie(movie);
+      }
+    }}>
           <img src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} />
           <div className="movie_description">
             <h2>{movie.title}</h2>
