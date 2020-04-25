@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "db-schema": "mysql -u student -p < ./db/sql/moviesSchema.sql"
   },
   "author": "Peter Park",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "nodemon": "^2.0.3",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0"
   },

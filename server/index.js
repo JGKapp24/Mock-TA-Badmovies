@@ -19,9 +19,28 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 //OPTION 1: Use regular routes
 
+
+//OPTION 2: Use Express Router
+
+//IF you decide to go with this option, delete OPTION 1 to continue
+
+//Routes
+
+const movieRoutes = require('./routes/movieRoutes.js');
+
+//Use routes
+app.use('/movies', movieRoutes);
+
+
+app.listen(3000, function() {
+  console.log('listening on port 3000!');
+});
+
+/* Option 1
+
 app.get('/genres', function(req, res) {
   // make an axios request to get the official list of genres from themoviedb
-  
+
   // use this endpoint. you will need your API key from signup: https://api.themoviedb.org/3/genre/movie/list
 
   // send back
@@ -46,19 +65,4 @@ app.post('/delete', function(req, res) {
 
 });
 
-
-//OPTION 2: Use Express Router
-
-//IF you decide to go with this option, delete OPTION 1 to continue
-
-//Routes
-
-const movieRoutes = require('./routes/movieRoutes.js');
-
-//Use routes
-app.use('/movies', movieRoutes);
-
-
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
-});
+*/
