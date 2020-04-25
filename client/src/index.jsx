@@ -21,8 +21,22 @@ class App extends React.Component {
     this.swapFavorites = this.swapFavorites.bind(this);
   }
 
-  getMovies() {
+  componentDidMount() {
+    this.getMovies();
+  }
+
+  getMovies(genreId) {
     // make an axios request to your server on the GET SEARCH endpoint
+    let url = `/movies/search${genreId ? `?genreId=${genreId}` : ''}`;
+
+    fetch(url)
+    .then(res => res.json())
+    .then((results) => {
+      this.setState({
+        movies: results.results
+      });
+    })
+    .catch(console.log);
   }
 
   saveMovie() {
@@ -46,7 +60,7 @@ class App extends React.Component {
         <header className="navbar"><h1>Bad Movies</h1></header>
 
         <div className="main">
-          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves}/>
+          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} searchMovies={this.getMovies}/>
           <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
         </div>
       </div>

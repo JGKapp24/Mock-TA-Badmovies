@@ -11,6 +11,7 @@ class Search extends React.Component {
     this.getGenres = this.getGenres.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.findGenreId = this.findGenreId.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +48,11 @@ class Search extends React.Component {
     }
   }
 
+  handleSearch(event) {
+    let genreId = this.state.selected.id;
+    this.props.searchMovies(genreId);
+  }
+
   render() {
     return (
       <div className="search">
@@ -63,7 +69,7 @@ class Search extends React.Component {
         </select>
         <br/><br/>
 
-        <button>Search</button>
+        <button onClick={this.handleSearch}>Search</button>
 
       </div>
     );

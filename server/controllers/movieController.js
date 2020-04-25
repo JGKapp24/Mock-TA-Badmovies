@@ -14,14 +14,13 @@ module.exports = {
     // https://api.themoviedb.org/3/discover/movie
 
     // and sort them by horrible votes using the search parameters in the API
-    // console.log('req.query =' , req.query);
     apiHelpers.get.movieList(req.query.genreId)
       .then(results => JSON.parse(results.body))
       .then(movies => {
         // console.log(movies);
         res.status(200).json({
           message: 'Got movies!',
-          results: movies
+          results: movies.results
         });
       })
       .catch(err => {
